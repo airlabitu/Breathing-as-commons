@@ -1,3 +1,5 @@
+// initial code working with manual actuation controlling a silicon air pocket
+
 // OUTPUTS
 int valve_pin = A0;
 int pressure_pin = 5;
