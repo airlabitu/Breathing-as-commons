@@ -1,5 +1,8 @@
 
 import controlP5.*;
+import processing.serial.*;
+
+Serial myPort;
 
 ControlP5 cp5;
 
@@ -55,6 +58,11 @@ void setup(){
      .setSize(30,30)
      .plugTo(this)
      ;
+  
+  String portName = Serial.list()[9];
+  println( Serial.list());
+  
+  myPort = new Serial(this, portName, 115200);
 }
 
 
@@ -62,11 +70,9 @@ void setup(){
 
 void draw(){
   
-  if (device_stream) background (255);
-  else if (!device_stream) background(0);
-  
   if (streamCounter+incrementStep < rawData.length-1) { 
     dataStream.push("data-stream", rawData[streamCounter]);
+    if (device_stream) myPort.write(1+"c"+int(map(rawData[streamCounter], min, max, 0, 255))+"w");
     streamCounter+=incrementStep;
   } 
 }
